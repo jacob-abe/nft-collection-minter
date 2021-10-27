@@ -136,6 +136,8 @@ contract NFTContract is ERC721URIStorage {
         "Some random chad"
     ];
 
+    event NewNFTMinted(address sender, uint256 tokenId);
+
     constructor() ERC721("QuestionableQuotesNft", "QQNft69") {
         console.log("NFTContract constructed");
     }
@@ -171,7 +173,8 @@ contract NFTContract is ERC721URIStorage {
             newItemId,
             msg.sender
         );
-        console.log("New Token Uri:%s",string(abi.encodePacked("data:application/json;base64,", json)));
+        emit NewNFTMinted(msg.sender, newItemId);
+        //console.log("New Token Uri:%s",string(abi.encodePacked("data:application/json;base64,", json)));
     }
 
     function random(string memory input) internal pure returns (uint256) {
